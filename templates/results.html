@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>
+            var rmse = {{ rmse|safe }}
+            var acc = {{ acc|safe }}
+        </script>
+    </head>
+    <body>
+        <h2> RMSE: {{ rmse }} </h2>
+        <h2> ACCURACY: {{ acc }} </h2>
+        <image src='/static/relation.png' width="600" height="500"></image>
+    </body>
+</html>
