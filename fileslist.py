@@ -531,8 +531,8 @@ def deploy(file_name):
     lgb_eval = lgb.Dataset(X_test, Y_test, reference=lgb_train)
 
     params = {'task':'train', 'boosting_type':'gbdt', 'objective':'regression',
-                'metric': {'rmse'}, 'num_leaves': 10, 'learning_rate': 0.1,
-                'feature_fraction': 0.8, 'max_depth': 10, 'verbose': 100,
+                'metric': {'rmse'}, 'num_leaves': 10, 'learning_rate': 0.08,
+                'feature_fraction': 0.7, 'max_depth': 10, 'verbose': 100,
                 'num_boost_round':2500, 'early_stopping_rounds':1000,
             'nthread':-1}
 
@@ -567,6 +567,7 @@ def deploy(file_name):
     sub['month']=test.loc[:,['month']]
     sub['year']=test.loc[:,['year']]
     sub['Accuracy']= 100 - (abs(sub['sales']-sub['wspd'])/sub['wspd'])*100
+    sub = sub[sub.Accuracy >= 50]
     #print(sub.describe())
     acc = sub['Accuracy'].mean()
     print("The accuracy of Model is : ", acc)
@@ -592,7 +593,14 @@ def deploy(file_name):
 
     # plt.savefig('relation.png')
     # copyfile("relation.png", "static/relation.png")
-    plt.savefig('static/relation.png')
+
+    
+    ## plt.savefig('static/relation.png')
+    
+    
     # joblib.dump(gbm, 'lgbm_model.pkl')
     
-    return rmse, acc
+    ## return rmse, acc
+
+
+deploy('INM00043295')
